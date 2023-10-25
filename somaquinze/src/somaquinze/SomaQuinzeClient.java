@@ -92,6 +92,16 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel() {
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -107,7 +117,6 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
@@ -118,187 +127,14 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("0 X 0");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(380, 570));
+        setPreferredSize(new java.awt.Dimension(400, 650));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setPreferredSize(new java.awt.Dimension(673, 360));
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-        });
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton3.setBackground(new java.awt.Color(20, 189, 172));
-        jButton3.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 100, 90));
-
-        jButton4.setBackground(new java.awt.Color(20, 189, 172));
-        jButton4.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setToolTipText("");
-        jButton4.setBorder(null);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 100, 90));
-
-        jButton5.setBackground(new java.awt.Color(20, 189, 172));
-        jButton5.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setBorder(null);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 100, 90));
-
-        jButton6.setBackground(new java.awt.Color(20, 189, 172));
-        jButton6.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setBorder(null);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 100, 90));
-
-        jButton7.setBackground(new java.awt.Color(20, 189, 172));
-        jButton7.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setBorder(null);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 100, 90));
-
-        jButton8.setBackground(new java.awt.Color(20, 189, 172));
-        jButton8.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setBorder(null);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 100, 90));
-
-        jButton9.setBackground(new java.awt.Color(20, 189, 172));
-        jButton9.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setBorder(null);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 100, 90));
-
-        jButton10.setBackground(new java.awt.Color(20, 189, 172));
-        jButton10.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setBorder(null);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 100, 90));
-
-        jButton11.setBackground(new java.awt.Color(20, 189, 172));
-        jButton11.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setBorder(null);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 100, 90));
-
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Você é: - ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton14.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton14.setText("9");
-        jButton14.setBorder(null);
-        jPanel3.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 30, 30));
-
-        jButton15.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton15.setText("1");
-        jButton15.setBorder(null);
-        jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
-
-        jButton16.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton16.setText("2");
-        jButton16.setBorder(null);
-        jPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 30, 30));
-
-        jButton17.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton17.setText("3");
-        jButton17.setBorder(null);
-        jPanel3.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 30, 30));
-
-        jButton18.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton18.setText("4");
-        jButton18.setBorder(null);
-        jPanel3.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 30, 30));
-
-        jButton19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton19.setText("5");
-        jButton19.setBorder(null);
-        jPanel3.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 30, 30));
-
-        jButton20.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton20.setText("6");
-        jButton20.setBorder(null);
-        jPanel3.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 30, 30));
-
-        jButton21.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton21.setText("7");
-        jButton21.setBorder(null);
-        jPanel3.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 30, 30));
-
-        jButton22.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jButton22.setText("8");
-        jButton22.setBorder(null);
-        jPanel3.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 30, 30));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 370, 50));
-
-        jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(650, 35));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -340,19 +176,213 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         });
         jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 60, -1));
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/somaquinze/Logo.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 370, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setMinimumSize(new java.awt.Dimension(436, 440));
+        jPanel1.setPreferredSize(new java.awt.Dimension(673, 400));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton3.setBackground(new java.awt.Color(153, 217, 89));
+        jButton3.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 100, 90));
+
+        jButton4.setBackground(new java.awt.Color(153, 217, 89));
+        jButton4.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setToolTipText("");
+        jButton4.setBorder(null);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 100, 90));
+
+        jButton5.setBackground(new java.awt.Color(153, 217, 89));
+        jButton5.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 100, 90));
+
+        jButton6.setBackground(new java.awt.Color(153, 217, 89));
+        jButton6.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setBorder(null);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 100, 90));
+
+        jButton7.setBackground(new java.awt.Color(153, 217, 89));
+        jButton7.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 100, 90));
+
+        jButton8.setBackground(new java.awt.Color(153, 217, 89));
+        jButton8.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setBorder(null);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 100, 90));
+
+        jButton9.setBackground(new java.awt.Color(153, 217, 89));
+        jButton9.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 255, 255));
+        jButton9.setBorder(null);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 100, 90));
+
+        jButton10.setBackground(new java.awt.Color(153, 217, 89));
+        jButton10.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setBorder(null);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 100, 90));
+
+        jButton11.setBackground(new java.awt.Color(153, 217, 89));
+        jButton11.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setBorder(null);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 100, 90));
+
+        jPanel3.setBackground(new java.awt.Color(225, 225, 225));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton14.setBackground(new java.awt.Color(241, 241, 241));
+        jButton14.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton14.setText("9");
+        jButton14.setBorder(null);
+        jPanel3.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 30, 30));
+
+        jButton15.setBackground(new java.awt.Color(241, 241, 241));
+        jButton15.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton15.setText("1");
+        jButton15.setBorder(null);
+        jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
+
+        jButton16.setBackground(new java.awt.Color(241, 241, 241));
+        jButton16.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton16.setText("2");
+        jButton16.setBorder(null);
+        jPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 30, 30));
+
+        jButton17.setBackground(new java.awt.Color(241, 241, 241));
+        jButton17.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton17.setText("3");
+        jButton17.setBorder(null);
+        jPanel3.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 30, 30));
+
+        jButton18.setBackground(new java.awt.Color(241, 241, 241));
+        jButton18.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton18.setText("4");
+        jButton18.setBorder(null);
+        jPanel3.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 30, 30));
+
+        jButton19.setBackground(new java.awt.Color(241, 241, 241));
+        jButton19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton19.setText("5");
+        jButton19.setBorder(null);
+        jPanel3.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 30, 30));
+
+        jButton20.setBackground(new java.awt.Color(241, 241, 241));
+        jButton20.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton20.setText("6");
+        jButton20.setBorder(null);
+        jPanel3.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 30, 30));
+
+        jButton21.setBackground(new java.awt.Color(241, 241, 241));
+        jButton21.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton21.setText("7");
+        jButton21.setBorder(null);
+        jPanel3.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 30));
+
+        jButton22.setBackground(new java.awt.Color(241, 241, 241));
+        jButton22.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jButton22.setText("8");
+        jButton22.setBorder(null);
+        jPanel3.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 30, 30));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 400, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -464,10 +494,11 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
