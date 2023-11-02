@@ -16,11 +16,6 @@ public class SomaQuinzeServerHandler extends Thread {
         this.caller = caller;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        encerrar();
-    }
-
     private void encerrar() {
         this.caller.removerCliente(this.cliente);
     }
@@ -99,43 +94,9 @@ public class SomaQuinzeServerHandler extends Thread {
                     break;
                 }
                 
-                StringTokenizer tokens = new StringTokenizer(message, "|");
-
-                String jogada = tokens.nextToken();
-
-                if (jogada.equals("X") || jogada.equals("O")) {
-                   int posicao = Integer.parseInt(tokens.nextToken());
-
-                    this.caller.board[posicao] = jogada;
-                    this.caller.turno = this.caller.turno.equals("X") ? "O" : "X";
-
-                    String vencedor = verificaVencedor();
-
-                    if (vencedor != null) {
-                       switch (vencedor) {
-                           case "X":
-                               this.caller.pontuacaoX++;
-                               break;
-                           case "O":
-                               this.caller.pontuacaoO++;
-                               break;
-                           default:
-                               this.caller.pontuacaoX++;
-                               this.caller.pontuacaoO++;
-                               break;
-                       }
-                       
-                       this.caller.turno = vencedor.equals("draw") || vencedor.equals("X") ? "X" : "O";
-  
-                       message = "final" + "|" + String.valueOf(this.caller.pontuacaoX) + "|" + String.valueOf(this.caller.pontuacaoO) + "|" + this.caller.turno; 
-               
-                       for (int a = 0; a < 9; a++) {
-                            this.caller.board[a] = String.valueOf(a + 1);
-                       }
-                    } else {
-                       message = "jogada" + "|" + jogada + "|" + String.valueOf(posicao) + "|" + this.caller.turno;
-                    }                  
-                }
+               // if (message.equals("casa")) {
+                 //   message = "casa";
+               // }
                 
                 messageDispatcher(message); 
                 System.out.println(message);

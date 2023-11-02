@@ -35,19 +35,24 @@ public class SomaQuinzeClientHandler extends Thread {
                 
                 StringTokenizer tokens = new StringTokenizer(message, "|");
                 String resposta = tokens.nextToken();        
+ 
                 
                 if (resposta.equals("player")) {                    
                     this.caller.player = tokens.nextToken();
-                    
                     this.caller.iniciar();
                 }
+                                
                 
                 if (resposta.equals("jogada")) {
-                    String jogada = tokens.nextToken();
-                    int posicao = Integer.parseInt(tokens.nextToken());
                     String turno = tokens.nextToken();
-                    this.caller.board[posicao] = jogada;
-                    this.caller.turno = turno;
+                    int posicao = Integer.parseInt(tokens.nextToken());           
+                    int valor = Integer.parseInt(tokens.nextToken());
+                    this.caller.board[posicao] = String.valueOf(valor);
+                    if (turno.equals("1"))
+                        this.caller.turno = "2";
+                    else
+                        this.caller.turno = "1";
+                        
                 }
                 
                 if (resposta.equals("final")) {

@@ -14,6 +14,7 @@ public class SomaQuinzeClientMain {
         handler = new SomaQuinzeClientHandler(socket, caller);
         this.handler.start();
         this.output = new PrintWriter(this.socket.getOutputStream(), true);
+        
     }
 
     public void writeMessage(String outMessage) {
@@ -21,18 +22,9 @@ public class SomaQuinzeClientMain {
     }
 
     public void closeConnection() throws IOException {
-        this.handler.stop();
+        //this.handler.stop();
         this.output.close();
         this.socket.close();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            this.closeConnection();
-        } finally {
-            super.finalize();
-        }
     }
 
 

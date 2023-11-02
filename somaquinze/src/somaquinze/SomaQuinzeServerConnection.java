@@ -22,13 +22,6 @@ public class SomaQuinzeServerConnection {
         }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        this.input.close();
-        this.output.close();
-        this.socket.close();
-    }
-
     public Socket getSocket() {
         return socket;
     }

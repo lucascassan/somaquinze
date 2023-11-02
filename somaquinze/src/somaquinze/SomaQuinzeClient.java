@@ -2,23 +2,92 @@ package somaquinze;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class SomaQuinzeClient extends javax.swing.JFrame {
+public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener {
 
     public String player = "";
+    public String c_values = "";
     public String[] board = new String[9];
-    public String turno = "X";
+    public String turno = "1";
+      
+    public String modo = "casa"; //casa,valor,espera
+    public int casa = 0;
+    public int valor = 0; 
+    
+    public void keyPressed(KeyEvent e){
+        if (e.getKeyCode() == KeyEvent.VK_1)
+            sendCommand(1);
+        if (e.getKeyCode() == KeyEvent.VK_2)
+            sendCommand(2);
+        if (e.getKeyCode() == KeyEvent.VK_3)
+            sendCommand(3);
+        if (e.getKeyCode() == KeyEvent.VK_4)
+            sendCommand(4);
+        if (e.getKeyCode() == KeyEvent.VK_5)
+            sendCommand(5);
+        if (e.getKeyCode() == KeyEvent.VK_6)
+            sendCommand(6);
+        if (e.getKeyCode() == KeyEvent.VK_7)
+            sendCommand(7);
+        if (e.getKeyCode() == KeyEvent.VK_8)
+            sendCommand(8);
+        if (e.getKeyCode() == KeyEvent.VK_9)
+            sendCommand(9);
+    }
+    
+    public void keyReleased(KeyEvent e) {
+        
+    }
+    public void keyTyped(KeyEvent e) {
+        keyPressed(e);
+    }
     
     public SomaQuinzeClient() {
         for (int a = 0; a < 9; a++) {
-            board[a] = String.valueOf(a + 1);
+            board[a] = "";            
+        }     
+        initComponents();
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+    }
+    
+    
+    
+    public void sendCommand(int v){
+        
+        if (!player.equals(turno))
+            return;
+   
+          if (modo.equals("casa")){
+            v = v-1;
+            if (!board[v].equals(""))
+                return;
+            casa = v;
+            JButton botao = retornaBotao(v);
+            botao.setBackground(Color.ORANGE);
+            modo = "valor";  
+            jLabel7.setText("Escolha um valor");
+            return;
         }
         
-        initComponents();
+        if (modo.equals("valor")){
+            valor = v;
+            for (int i = 0; i < 9; i++) 
+                if (board[i].equals(String.valueOf(valor)))
+                    return;
+            tcpClient.writeMessage("jogada|"+this.player+"|"+String.valueOf(casa)+"|"+String.valueOf(valor)+"|");
+            modo = "casa";
+            valor = 0;
+            casa = 0;
+            jLabel7.setText("Aguarde o outro jogador");
+        }
     }
     
     public JButton retornaBotao(int index) {
@@ -44,7 +113,32 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
             default:
                 break;         
         }
-        
+        return null;
+    }
+    
+    public JButton retornaBotaoEscolha(int index) {
+        switch (index) {
+            case 1:
+                return jButton15;
+            case 2:
+                return jButton16;
+            case 3:
+                return jButton17;
+            case 4:
+                return jButton18;
+            case 5:
+                return jButton19;
+            case 6:
+                return jButton20;
+            case 7:
+                return jButton21;
+            case 8:
+                return jButton22;
+            case 9:
+                return jButton14;
+            default:
+                break;         
+        }
         return null;
     }
 
@@ -53,18 +147,26 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
             for (int i = 0; i < 9; i++) {
                 JButton botao = retornaBotao(i);
 
-                if (!board[i].equals(String.valueOf(i + 1))) {
-                    botao.setForeground(Color.WHITE);
+                if (!board[i].equals("")){
+                    botao.setBackground(Color.RED);
                     botao.setText(board[i]);
+                    
+                    JButton botaoEscolha = retornaBotaoEscolha(Integer.parseInt(board[i]));
+                    botaoEscolha.setVisible(false);       
                 }
-
-                botao.setEnabled(this.player.equals(turno));
+                 botao.setEnabled(this.player.equals(turno));
+  
             }
+            
+            if (this.player.equals(turno))
+                jLabel7.setText("Escolha uma casa");
+             else
+                jLabel7.setText("Aguarde o outro jogador");
         } 
     }
 
     public void iniciar() {
-        jLabel4.setText("Você é: " + this.player);
+        //jLabel4.setText("Você é: " + this.player);
         
         for (int i = 0; i < 9; i++) {
             retornaBotao(i).setEnabled(this.player.equals(turno));
@@ -100,6 +202,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel() {
@@ -127,54 +230,79 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("0 X 0");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 650));
+        setPreferredSize(new java.awt.Dimension(400, 660));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         jPanel2.setPreferredSize(new java.awt.Dimension(650, 35));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Pronto!");
-        jButton2.setEnabled(false);
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setText("Tutorial");
+        jButton2.setToolTipText("");
+        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 110, 50));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 80, 50));
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Conectar");
+        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton1.setBorderPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 120, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 90, -1));
 
         jTextField2.setText("6789");
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 60, -1));
+        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 40, -1));
 
         jTextField1.setText("localhost");
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 120, -1));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 90, -1));
 
         jLabel1.setText("Porta");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
         jLabel2.setText("Servidor");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
+        jButton12.setBackground(new java.awt.Color(204, 204, 204));
         jButton12.setText("Sair");
+        jButton12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton12.setEnabled(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 60, -1));
+        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 40, -1));
+
+        jButton13.setBackground(new java.awt.Color(204, 204, 204));
+        jButton13.setText("Pronto");
+        jButton13.setToolTipText("");
+        jButton13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton13.setEnabled(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 80, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/somaquinze/Logo.png"))); // NOI18N
         jLabel5.setText("jLabel5");
@@ -311,67 +439,124 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
         jButton14.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton14.setText("9");
         jButton14.setBorder(null);
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 30, 30));
 
         jButton15.setBackground(new java.awt.Color(241, 241, 241));
         jButton15.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton15.setText("1");
         jButton15.setBorder(null);
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 30));
 
         jButton16.setBackground(new java.awt.Color(241, 241, 241));
         jButton16.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton16.setText("2");
         jButton16.setBorder(null);
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 30, 30));
 
         jButton17.setBackground(new java.awt.Color(241, 241, 241));
         jButton17.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton17.setText("3");
         jButton17.setBorder(null);
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 30, 30));
 
         jButton18.setBackground(new java.awt.Color(241, 241, 241));
         jButton18.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton18.setText("4");
         jButton18.setBorder(null);
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 30, 30));
 
         jButton19.setBackground(new java.awt.Color(241, 241, 241));
         jButton19.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton19.setText("5");
         jButton19.setBorder(null);
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 30, 30));
 
         jButton20.setBackground(new java.awt.Color(241, 241, 241));
         jButton20.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton20.setText("6");
         jButton20.setBorder(null);
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 30, 30));
 
         jButton21.setBackground(new java.awt.Color(241, 241, 241));
         jButton21.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton21.setText("7");
         jButton21.setBorder(null);
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 30));
 
         jButton22.setBackground(new java.awt.Color(241, 241, 241));
         jButton22.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jButton22.setText("8");
         jButton22.setBorder(null);
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VClick(evt);
+            }
+        });
         jPanel3.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 30, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 400, 50));
+
+        jLabel7.setBackground(new java.awt.Color(128, 181, 74));
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Conecte-se");
+        jLabel7.setToolTipText("");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel7.setName("lbAviso"); // NOI18N
+        jLabel7.setOpaque(true);
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 390, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -382,7 +567,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -390,13 +575,15 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            
             String server = jTextField1.getText();
             int porta = Integer.parseInt(jTextField2.getText());
             tcpClient = new SomaQuinzeClientMain(server, porta, this);
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
             tcpClient.writeMessage("0");
-            jPanel1.requestFocus();
+            jPanel2.setVisible(false);
+            jLabel7.setText("Aguarde");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -412,45 +599,68 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1KeyPressed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "0");        
+        if (modo.equals("casa"))
+            sendCommand(1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "1");
+        if (modo.equals("casa"))
+            sendCommand(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        tcpClient.writeMessage(this.player + "|" + "2");
+        if (modo.equals("casa"))
+            sendCommand(3);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "3");
+       if (modo.equals("casa"))
+            sendCommand(4);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "4");
+       if (modo.equals("casa"))
+            sendCommand(5);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "5");
+       if (modo.equals("casa"))
+            sendCommand(6);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "6");
+       if (modo.equals("casa"))
+            sendCommand(7);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "7");
+        if (modo.equals("casa"))
+            sendCommand(8);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        tcpClient.writeMessage(this.player + "|" + "8");
+        if (modo.equals("casa"))
+            sendCommand(9);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseMoved
+
+    private void VClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VClick
+      if (modo.equals("valor")){
+            JButton button = (JButton)evt.getSource();
+            sendCommand(Integer.parseInt(button.getText()));
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_VClick
 
     public void closeConnection() {
         try {
@@ -474,6 +684,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
@@ -495,6 +706,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -513,4 +725,6 @@ public class SomaQuinzeClient extends javax.swing.JFrame {
             new SomaQuinzeClient().setVisible(true);
         }
     }
+    
+    
 }

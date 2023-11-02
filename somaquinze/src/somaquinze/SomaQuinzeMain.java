@@ -12,7 +12,7 @@ public class SomaQuinzeMain extends Thread {
     private ServerSocket server;
     
     public String[] board = new String[9];
-    public String turno = "X";
+    public String turno = "1";
     public int pontuacaoX;
     public int pontuacaoO;
 
@@ -45,9 +45,9 @@ public class SomaQuinzeMain extends Thread {
         clientes.add(cliente);
         
         if (clientes.size() == 1) {
-            cliente.getOutput().println("player" + "|" + "X");
+            cliente.getOutput().println("player" + "|" + "1");
         } else {
-            cliente.getOutput().println("player" + "|" + "O");
+            cliente.getOutput().println("player" + "|" + "2");
         }
     }
 
@@ -71,11 +71,6 @@ public class SomaQuinzeMain extends Thread {
         return clientes;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        this.server.close();
-    }
 
 
 }
