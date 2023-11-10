@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeClient.java</file>
-            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeClientHandler.java</file>
+            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeServerConnection.java</file>
+            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeServerHandler.java</file>
             <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeMain.java</file>
-            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeClientMain.java</file>
+            <file>file:/C:/Users/Cassan/Documents/GitHub/somaquinze/somaquinze/src/somaquinze/SomaQuinzeServer.java</file>
         </group>
     </open-files>
 </project-private>

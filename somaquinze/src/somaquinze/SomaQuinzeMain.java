@@ -22,7 +22,7 @@ public class SomaQuinzeMain extends Thread {
         this.clientes = new ArrayList<>();
         
         for (int a = 0; a < 9; a++) {
-            board[a] = String.valueOf(a + 1);
+            board[a] = "";//String.valueOf(a + 1);
         }
     }
 
@@ -70,7 +70,7 @@ public class SomaQuinzeMain extends Thread {
     public List getClientes() {
         return clientes;
     }
-
+    
 
 
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener {
 
@@ -19,6 +20,13 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     public String modo = "casa"; //casa,valor,espera
     public int casa = 0;
     public int valor = 0; 
+    
+    private Color color_default  = new Color(153,217,89);
+    private Color color_selected = new Color(181,175,74);
+    private Color color_used     = new Color(74,105,34);
+    private Color color_win      = new Color(181,74,97);
+    
+    
     
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode() == KeyEvent.VK_1)
@@ -42,12 +50,31 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     }
     
     public void keyReleased(KeyEvent e) {
-        
     }
     public void keyTyped(KeyEvent e) {
-        keyPressed(e);
     }
     
+    public void Final(String APlayer, String ASequencia)
+    {
+        String message = (APlayer.equals(player))?
+                          "Você ganhou!":
+                          "Você perdeu!";
+      
+        //Conjunto Vencedor
+        for (int i = 0; i < 3; i++) {
+            int aux = Integer.parseInt(ASequencia.substring(i,i+1));
+            JButton botao = retornaBotaoCasa(aux);
+            botao.setBackground(color_win);                   
+        }
+        
+        jLabel7.setText(message);
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja jogar Novamente?", message, JOptionPane.YES_NO_OPTION) != 0)
+            System.exit(0);
+        else
+            novoJogo();
+      
+    }
+        
     public SomaQuinzeClient() {
         for (int a = 0; a < 9; a++) {
             board[a] = "";            
@@ -56,12 +83,13 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+        
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        UIManager.put("OptionPane.noButtonText", "Não");
     }
     
     
-    
-    public void sendCommand(int v){
-        
+    public void sendCommand(int v){         
         if (!player.equals(turno))
             return;
    
@@ -70,8 +98,8 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             if (!board[v].equals(""))
                 return;
             casa = v;
-            JButton botao = retornaBotao(v);
-            botao.setBackground(Color.ORANGE);
+            JButton botao = retornaBotaoCasa(v);
+            botao.setBackground(color_selected);
             modo = "valor";  
             jLabel7.setText("Escolha um valor");
             return;
@@ -90,7 +118,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         }
     }
     
-    public JButton retornaBotao(int index) {
+    public JButton retornaBotaoCasa(int index) {
         switch (index) {
             case 0:
                 return jButton4;
@@ -116,7 +144,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         return null;
     }
     
-    public JButton retornaBotaoEscolha(int index) {
+    public JButton retornaBotaoNumero(int index) {
         switch (index) {
             case 1:
                 return jButton15;
@@ -145,17 +173,15 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     public void atualizarPainel(Graphics g) {  
         if (!player.equals("")) {  
             for (int i = 0; i < 9; i++) {
-                JButton botao = retornaBotao(i);
+                JButton botao = retornaBotaoCasa(i);
 
                 if (!board[i].equals("")){
-                    botao.setBackground(Color.RED);
+                    botao.setBackground(color_used);
                     botao.setText(board[i]);
                     
-                    JButton botaoEscolha = retornaBotaoEscolha(Integer.parseInt(board[i]));
+                    JButton botaoEscolha = retornaBotaoNumero(Integer.parseInt(board[i]));
                     botaoEscolha.setVisible(false);       
                 }
-                 botao.setEnabled(this.player.equals(turno));
-  
             }
             
             if (this.player.equals(turno))
@@ -165,24 +191,23 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         } 
     }
 
-    public void iniciar() {
-        //jLabel4.setText("Você é: " + this.player);
-        
-        for (int i = 0; i < 9; i++) {
-            retornaBotao(i).setEnabled(this.player.equals(turno));
-        }       
+    public void iniciar() {     
     }
     
-    public void reiniciar(int pontuacaoX, int pontuacaoO) {
-        jLabel3.setText(String.valueOf(pontuacaoX) + "X" + String.valueOf(pontuacaoO));
-        
+    public void novoJogo(){
         for (int i = 0; i < 9; i++) {
-            JButton botao = retornaBotao(i);
-            botao.setForeground(Color.WHITE);
+            board[i]= "";
+            JButton botao = retornaBotaoCasa(i);
             botao.setText("");
-            botao.setEnabled(this.player.equals(turno));
-        } 
+            botao.setBackground(color_default);
+           
+            JButton botaoEscolha = retornaBotaoNumero(i+1);
+            botaoEscolha.setVisible(true);       
+         }
+        
+        //Tratar Novo jogo // Pontuação?
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -237,6 +262,8 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         jLabel3.setText("0 X 0");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImages(null);
+        setLocation(new java.awt.Point(0, 0));
         setPreferredSize(new java.awt.Dimension(400, 660));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -269,7 +296,12 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 90, -1));
 
-        jTextField2.setText("6789");
+        jTextField2.setText("1515");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 40, -1));
 
         jTextField1.setText("localhost");
@@ -571,6 +603,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -582,17 +615,14 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             jButton1.setEnabled(false);
             jButton2.setEnabled(true);
             tcpClient.writeMessage("0");
-            jPanel2.setVisible(false);
+            jPanel2.setEnabled(false);
             jLabel7.setText("Aguarde");
+            jButton12.setEnabled(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
-                    e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                    "  Falha ao encontrar servidor", "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        closeConnection();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
        
@@ -644,7 +674,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -661,6 +691,14 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             sendCommand(Integer.parseInt(button.getText()));
         }        // TODO add your handling code here:
     }//GEN-LAST:event_VClick
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void closeConnection() {
         try {

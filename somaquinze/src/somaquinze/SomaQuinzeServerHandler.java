@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 public class SomaQuinzeServerHandler extends Thread {
 
@@ -20,53 +21,44 @@ public class SomaQuinzeServerHandler extends Thread {
         this.caller.removerCliente(this.cliente);
     }
     
+     private int GetCasa(int i){
+        try {
+            int a = Integer.parseInt(this.caller.board[i]);
+            return a;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+    
+    private String VerificaSomaCasas(int i1, int i2, int i3){
+        int aux = (GetCasa(i1)+GetCasa(i2)+GetCasa(i3));
+        if (aux == 15)
+            return String.valueOf(i1)+String.valueOf(i2)+String.valueOf(i3);
+        else
+            return "";
+    }
+    
     private String verificaVencedor() {
-        for (int a = 0; a < 8; a++) {
-            String line = null;
- 
-            switch (a) {
-            case 0:
-                line = this.caller.board[0] + this.caller.board[1] + this.caller.board[2];
-                break;
-            case 1:
-                line = this.caller.board[3] + this.caller.board[4] + this.caller.board[5];
-                break;
-            case 2:
-                line = this.caller.board[6] + this.caller.board[7] + this.caller.board[8];
-                break;
-            case 3:
-                line = this.caller.board[0] + this.caller.board[3] + this.caller.board[6];
-                break;
-            case 4:
-                line = this.caller.board[1] + this.caller.board[4] + this.caller.board[7];
-                break;
-            case 5:
-                line = this.caller.board[2] + this.caller.board[5] + this.caller.board[8];
-                break;
-            case 6:
-                line = this.caller.board[0] + this.caller.board[4] + this.caller.board[8];
-                break;
-            case 7:
-                line = this.caller.board[2] + this.caller.board[4] + this.caller.board[6];
-                break;
-            }
-      
-            if ("XXX".equals(line)) {
-                return "X";
-            } else if ("OOO".equals(line)) {
-                return "O";
-            }
+          String result = "";
+        int Possiveis[][] = {
+                {0,1,2},
+                {3,4,5},
+                {6,7,8},
+                {0,3,6},
+                {1,4,7},
+                {2,5,8},
+                {0,4,8},
+                {2,4,6}
+                };
+        for (int i = 0; i < 8; i++) {
+            result = VerificaSomaCasas(Possiveis[i][0], Possiveis[i][1],Possiveis[i][2]);
+            if (!result.equals(""))
+                break;                 
         }
-         
-        for (int a = 0; a < 9; a++) {
-            if (Arrays.asList(this.caller.board).contains(String.valueOf(a + 1))) {
-                break;
-            } else if (a == 8) {
-                return "draw";
-            }
-        }
-        
-        return null;
+        if (!result.equals(""))
+            return result;
+        else                 
+            return "";
     }
 
     public synchronized void messageDispatcher(String message) throws IOException {
@@ -82,6 +74,8 @@ public class SomaQuinzeServerHandler extends Thread {
     @Override
     public void run() {
         String message;
+        String response ="";
+
         while (true) {
             try {
                 if (this.cliente.getSocket().isConnected() && this.cliente.getInput() != null) {
@@ -89,23 +83,36 @@ public class SomaQuinzeServerHandler extends Thread {
                 } else {
                     break;
                 }
+                StringTokenizer tokens = new StringTokenizer(message, "|");
+                String auxMessage = tokens.nextToken();  
                 
                 if (message == null || message.equals("")) {
                     break;
                 }
                 
-               // if (message.equals("casa")) {
-                 //   message = "casa";
-               // }
+               if (auxMessage.equals("jogada")){
+                   String jogador = tokens.nextToken();
+                   String casa    = tokens.nextToken();
+                   String valor   = tokens.nextToken();
+                   this.caller.board[Integer.parseInt(casa)] = valor;
+                    response = verificaVencedor();
+                    if (!response.equals(""))
+                        response = "final|"+jogador+"|"+response;
+               }
                 
                 messageDispatcher(message); 
+                
+                if (!response.equals("")){
+                    TimeUnit.MILLISECONDS.sleep(300);
+                    messageDispatcher(response); 
+                }
+                
                 System.out.println(message);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 break;
             }
         }
-        
         encerrar();
     }
 }

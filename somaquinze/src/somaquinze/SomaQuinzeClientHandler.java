@@ -56,17 +56,9 @@ public class SomaQuinzeClientHandler extends Thread {
                 }
                 
                 if (resposta.equals("final")) {
-                    int pontuacaoX = Integer.parseInt(tokens.nextToken());
-                    int pontuacaoO = Integer.parseInt(tokens.nextToken());
-                    String turno = tokens.nextToken();          
-
-                    this.caller.turno = turno;
-                    
-                    for (int a = 0; a < 9; a++) {
-                        this.caller.board[a] = String.valueOf(a + 1);
-                    }
-                    
-                    this.caller.reiniciar(pontuacaoX, pontuacaoO);
+                    String player  = tokens.nextToken();
+                    String sequencia = tokens.nextToken();
+                    this.caller.Final(player, sequencia);
                 }
                 
                 caller.repaint();
