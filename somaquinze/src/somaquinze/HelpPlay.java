@@ -99,7 +99,7 @@ public class HelpPlay extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(153, 153, 153));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Como se conectar?");
+        jButton1.setText("Como conectar?");
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton1.setBorderPainted(false);
         jButton1.setMaximumSize(new java.awt.Dimension(230, 30));
