@@ -39,10 +39,12 @@ public class SomaQuinzeClientHandler extends Thread {
                 
                 if (resposta.equals("player")) {                    
                     this.caller.player = tokens.nextToken();
-                    this.caller.iniciar();
                 }
-                                
                 
+                if (resposta.equals("ready")){
+                    this.caller.pronto = true;
+                }
+                                                
                 if (resposta.equals("jogada")) {
                     String turno = tokens.nextToken();
                     int posicao = Integer.parseInt(tokens.nextToken());           

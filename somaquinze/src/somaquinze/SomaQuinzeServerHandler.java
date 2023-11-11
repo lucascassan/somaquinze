@@ -26,7 +26,7 @@ public class SomaQuinzeServerHandler extends Thread {
             int a = Integer.parseInt(this.caller.board[i]);
             return a;
         } catch (Exception e) {
-            return 0;
+            return -999;
         }
     }
     
@@ -67,8 +67,14 @@ public class SomaQuinzeServerHandler extends Thread {
             if (cli.getSocket() != null && cli.getSocket().isConnected() && cli.getOutput() != null) {
                 cli.getOutput().println(message);
                 cli.getOutput().flush();
+                
+                 if (clientes.size()==2 && !this.caller.pronto ){
+                    cli.getOutput().println("ready");
+                    cli.getOutput().flush();    
+                 }
+                
             }
-        }
+        }     
     }
 
     @Override
@@ -105,6 +111,7 @@ public class SomaQuinzeServerHandler extends Thread {
                 if (!response.equals("")){
                     TimeUnit.MILLISECONDS.sleep(300);
                     messageDispatcher(response); 
+                    this.caller.resetMatch();
                 }
                 
                 System.out.println(message);

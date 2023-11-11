@@ -16,15 +16,16 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     public String c_values = "";
     public String[] board = new String[9];
     public String turno = "1";
+    public boolean pronto = false;
       
     public String modo = "casa"; //casa,valor,espera
     public int casa = 0;
     public int valor = 0; 
     
     private Color color_default  = new Color(153,217,89);
-    private Color color_selected = new Color(181,175,74);
+    private Color color_selected = Color.orange;
     private Color color_used     = new Color(74,105,34);
-    private Color color_win      = new Color(181,74,97);
+    private Color color_win      = new Color(255,153,13);
     
     
     
@@ -183,11 +184,13 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
                     botaoEscolha.setVisible(false);       
                 }
             }
-            
-            if (this.player.equals(turno))
-                jLabel7.setText("Escolha uma casa");
-             else
-                jLabel7.setText("Aguarde o outro jogador");
+      
+            if (this.pronto){
+                if (this.player.equals(turno))
+                    jLabel7.setText("Escolha uma casa");
+                 else
+                    jLabel7.setText("Aguarde o outro jogador");
+            }
         } 
     }
 
@@ -336,7 +339,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         });
         jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 80, 50));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/somaquinze/Logo.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/somaquinze/img/Logo.png"))); // NOI18N
         jLabel5.setText("jLabel5");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -345,7 +348,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
         );
         jPanel4Layout.setVerticalGroup(
@@ -616,7 +619,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             jButton2.setEnabled(true);
             tcpClient.writeMessage("0");
             jPanel2.setEnabled(false);
-            jLabel7.setText("Aguarde");
+            jLabel7.setText("Aguardando jogador");
             jButton12.setEnabled(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -697,7 +700,10 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
+            HelpPlay help = new HelpPlay();
+            help.setVisible(true);
+            
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void closeConnection() {

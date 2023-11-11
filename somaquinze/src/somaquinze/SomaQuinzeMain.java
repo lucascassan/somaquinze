@@ -15,6 +15,7 @@ public class SomaQuinzeMain extends Thread {
     public String turno = "1";
     public int pontuacaoX;
     public int pontuacaoO;
+    public boolean pronto = false;
 
     public SomaQuinzeMain(int porta) throws IOException {
         this.server = new ServerSocket(porta);
@@ -23,6 +24,12 @@ public class SomaQuinzeMain extends Thread {
         
         for (int a = 0; a < 9; a++) {
             board[a] = "";//String.valueOf(a + 1);
+        }
+    }
+    
+    public void resetMatch(){
+        for (int i = 0; i < 9; i++) {
+            board[i] = "";
         }
     }
 
@@ -34,6 +41,7 @@ public class SomaQuinzeMain extends Thread {
                 socket = this.server.accept();
                 SomaQuinzeServerConnection cliente = new SomaQuinzeServerConnection(socket);
                 novoCliente(cliente);
+                
                 (new SomaQuinzeServerHandler(cliente, this)).start();
             } catch (IOException ex) {
                 System.out.println("Erro 4: " + ex.getMessage());
