@@ -2,7 +2,7 @@
 ![Texto Alternativo](https://raw.githubusercontent.com/lucascassan/somaquinze/main/somaquinze/src/somaquinze/img/Logo.png)
 
 
-"Soma 15" é um jogo simples. Baseado na estrutura de um jogo da velha. 
+**Soma 15** é um jogo simples. Baseado na estrutura de um jogo da velha. 
 
 O objetivo do jogo é alcançar a soma de quinze em uma grade 3x3.
 
