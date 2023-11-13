@@ -63,6 +63,11 @@ public class SomaQuinzeClientHandler extends Thread {
                     this.caller.Final(player, sequencia);
                 }
                 
+                 if (resposta.equals("draw")) {
+                    this.caller.Final("0", "");
+                }
+                
+                
                 caller.repaint();
             } catch (Exception ex) {
                 System.out.println("Deu erro no cliente");

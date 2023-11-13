@@ -60,6 +60,14 @@ public class SomaQuinzeServerHandler extends Thread {
         else                 
             return "";
     }
+    
+    private boolean VerificaEmpate(){
+        for (int i = 0; i < 9; i++) {
+            if (GetCasa(i)== -999)    
+                return false;
+        }
+        return true;
+    }
 
     public synchronized void messageDispatcher(String message) throws IOException {
         List<SomaQuinzeServerConnection> clientes = this.caller.getClientes();
@@ -104,6 +112,9 @@ public class SomaQuinzeServerHandler extends Thread {
                     response = verificaVencedor();
                     if (!response.equals(""))
                         response = "final|"+jogador+"|"+response;
+                    else if (VerificaEmpate())
+                        response = "draw";
+                    
                }
                 
                 messageDispatcher(message); 

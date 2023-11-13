@@ -30,23 +30,23 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     
     
     public void keyPressed(KeyEvent e){
-        if (e.getKeyCode() == KeyEvent.VK_1)
+        if (e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_NUMPAD1 )
             sendCommand(1);
-        if (e.getKeyCode() == KeyEvent.VK_2)
+        if (e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_NUMPAD2 )
             sendCommand(2);
-        if (e.getKeyCode() == KeyEvent.VK_3)
+        if (e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_NUMPAD3 )
             sendCommand(3);
-        if (e.getKeyCode() == KeyEvent.VK_4)
+        if (e.getKeyCode() == KeyEvent.VK_4 || e.getKeyCode() == KeyEvent.VK_NUMPAD4 )
             sendCommand(4);
-        if (e.getKeyCode() == KeyEvent.VK_5)
+        if (e.getKeyCode() == KeyEvent.VK_5 || e.getKeyCode() == KeyEvent.VK_NUMPAD5 )
             sendCommand(5);
-        if (e.getKeyCode() == KeyEvent.VK_6)
+        if (e.getKeyCode() == KeyEvent.VK_6 || e.getKeyCode() == KeyEvent.VK_NUMPAD6 )
             sendCommand(6);
-        if (e.getKeyCode() == KeyEvent.VK_7)
+        if (e.getKeyCode() == KeyEvent.VK_7 || e.getKeyCode() == KeyEvent.VK_NUMPAD7 )
             sendCommand(7);
-        if (e.getKeyCode() == KeyEvent.VK_8)
+        if (e.getKeyCode() == KeyEvent.VK_8 || e.getKeyCode() == KeyEvent.VK_NUMPAD8 )
             sendCommand(8);
-        if (e.getKeyCode() == KeyEvent.VK_9)
+        if (e.getKeyCode() == KeyEvent.VK_9 || e.getKeyCode() == KeyEvent.VK_NUMPAD9 )
             sendCommand(9);
     }
     
@@ -57,16 +57,18 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     
     public void Final(String APlayer, String ASequencia)
     {
-        String message = (APlayer.equals(player))?
+        String message = (APlayer.equals(player)) ?
                           "Você ganhou!":
+                          APlayer.equals("0") ? 
+                          "Empate!" :
                           "Você perdeu!";
       
-        //Conjunto Vencedor
-        for (int i = 0; i < 3; i++) {
-            int aux = Integer.parseInt(ASequencia.substring(i,i+1));
-            JButton botao = retornaBotaoCasa(aux);
-            botao.setBackground(color_win);                   
-        }
+        if (!ASequencia.equals(""))
+            for (int i = 0; i < 3; i++) {
+                int aux = Integer.parseInt(ASequencia.substring(i,i+1));
+                JButton botao = retornaBotaoCasa(aux);
+                botao.setBackground(color_win);                   
+            }
         
         jLabel7.setText(message);
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja jogar Novamente?", message, JOptionPane.YES_NO_OPTION) != 0)
@@ -93,13 +95,20 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     public void sendCommand(int v){         
         if (!player.equals(turno))
             return;
-   
+        
+     
           if (modo.equals("casa")){
             v = v-1;
-            if (!board[v].equals(""))
-                return;
             casa = v;
+            
+            if (!board[v].equals(""))
+                return;           
+                   
             JButton botao = retornaBotaoCasa(v);
+            if (botao.getText().equals("X"))
+                return;
+            
+            
             botao.setBackground(color_selected);
             modo = "valor";  
             jLabel7.setText("Escolha um valor");
@@ -172,18 +181,29 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
     }
 
     public void atualizarPainel(Graphics g) {  
+        boolean firstPlay = true;
         if (!player.equals("")) {  
+            
             for (int i = 0; i < 9; i++) {
                 JButton botao = retornaBotaoCasa(i);
 
                 if (!board[i].equals("")){
                     botao.setBackground(color_used);
                     botao.setText(board[i]);
+                    firstPlay = false;
                     
                     JButton botaoEscolha = retornaBotaoNumero(Integer.parseInt(board[i]));
                     botaoEscolha.setVisible(false);       
                 }
             }
+            
+            JButton botao = retornaBotaoCasa(4);
+            if (firstPlay)
+                botao.setText("X");
+            else if (botao.getText().equals("X"))
+                botao.setText("");                     
+            
+
       
             if (this.pronto){
                 if (this.player.equals(turno))
@@ -194,9 +214,6 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         } 
     }
 
-    public void iniciar() {     
-    }
-    
     public void novoJogo(){
         for (int i = 0; i < 9; i++) {
             board[i]= "";
@@ -281,6 +298,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         jButton2.setText("Tutorial");
         jButton2.setToolTipText("");
         jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -320,6 +338,7 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
         jButton12.setText("Sair");
         jButton12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton12.setEnabled(false);
+        jButton12.setFocusable(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -617,6 +636,9 @@ public class SomaQuinzeClient extends javax.swing.JFrame implements KeyListener 
             jPanel2.setEnabled(false);
             jLabel7.setText("Aguardando jogador");
             jButton12.setEnabled(true);
+            jTextField1.setEnabled(false);
+            jTextField2.setEnabled(false);
+            this.requestFocus();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "  Falha ao encontrar servidor", "", JOptionPane.ERROR_MESSAGE);
